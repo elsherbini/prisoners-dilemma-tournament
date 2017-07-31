@@ -6,7 +6,27 @@ var PEEP_METADATA = {
 	prober: {frame:4, color:"#f6b24c"},
 	  tf2t: {frame:5, color:"#88A8CE"},
 	pavlov: {frame:6, color:"#86C448"},
-	random: {frame:7, color:"#FF5E5E"}
+	random: {frame:7, color:"#FF5E5E"},
+	player01: {frame:0, color:"#4089DD"}, 
+	player02: {frame:0, color:"#4089DD"}, 
+	player03: {frame:0, color:"#4089DD"}, 
+	player04: {frame:0, color:"#4089DD"}, 
+	player05: {frame:0, color:"#4089DD"}, 
+	player06: {frame:0, color:"#4089DD"}, 
+	player07: {frame:0, color:"#4089DD"}, 
+	player08: {frame:0, color:"#4089DD"}, 
+	player09: {frame:0, color:"#4089DD"}, 
+	player10: {frame:0, color:"#4089DD"}, 
+	player11: {frame:0, color:"#4089DD"}, 
+	player12: {frame:0, color:"#4089DD"}, 
+	player13: {frame:0, color:"#4089DD"}, 
+	player14: {frame:0, color:"#4089DD"}, 
+	player15: {frame:0, color:"#4089DD"}, 
+	player16: {frame:0, color:"#4089DD"}, 
+	player17: {frame:0, color:"#4089DD"}, 
+	player18: {frame:0, color:"#4089DD"}, 
+	player19: {frame:0, color:"#4089DD"}, 
+	player20: {frame:0, color:"#4089DD"}, 
 };
 
 var PD = {};
@@ -14,10 +34,10 @@ PD.COOPERATE = "COOPERATE";
 PD.CHEAT = "CHEAT";
 
 PD.PAYOFFS_DEFAULT = {
-	P: 0, // punishment: neither of you get anything
-	S: -1, // sucker: you put in coin, other didn't.
-	R: 2, // reward: you both put 1 coin in, both got 3 back
-	T: 3 // temptation: you put no coin, got 3 coins anyway
+	P: 1, // punishment: neither of you get anything
+	S: 0, // sucker: you put in coin, other didn't.
+	R: 4, // reward: you both put 1 coin in, both got 3 back
+	T: 7 // temptation: you put no coin, got 3 coins anyway
 };
 
 PD.PAYOFFS = JSON.parse(JSON.stringify(PD.PAYOFFS_DEFAULT));
@@ -107,7 +127,7 @@ PD.playOneTournament = function(agents, turns){
 
 	// Reset everyone's coins
 	for(var i=0; i<agents.length; i++){
-		agents[i].resetCoins();
+		//agents[i].resetCoins();
 	}
 
 	// Round robin!
@@ -240,6 +260,207 @@ function Logic_prober(){
 			if(other==PD.CHEAT) everCheatedMe=true; // Testing phase: ever retaliated?
 		}
 		otherMove = other; // for TFT
+	};
+
+}
+
+function Logic_player01(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player02(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player03(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player04(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player05(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player06(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player07(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player08(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player09(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player10(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player11(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player12(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player13(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player14(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player15(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player16(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player17(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player18(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player19(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
+	};
+
+}
+function Logic_player20(){
+	var self = this;
+	self.play = function(){
+		return (Math.random()>0.5 ? PD.COOPERATE : PD.CHEAT);
+	};
+	self.remember = function(own, other){
+		// nah
 	};
 
 }

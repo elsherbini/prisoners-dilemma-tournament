@@ -25,10 +25,10 @@ window.onload = function(){
 		});
 		slideSelect.dom.style.display = "none";
 		subscribe("start/game", function(){
-			slideSelect.dom.style.display = "block";
+			slideSelect.dom.style.display = "none";
 
 			// [FOR DEBUGGING]
-			publish("slideshow/next");
+			publish("slideshow/goto", ['sandbox']);
 			//publish("slideshow/scratch", ["credits"]);
 
 		});
@@ -55,6 +55,6 @@ window.onload = function(){
 		// First slide!
 		slideshow.nextSlide();
 
-	});
 
+	});
 };

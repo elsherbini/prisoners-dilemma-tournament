@@ -4,14 +4,34 @@ Tournament.resetGlobalVariables = function(){
 	Tournament.NUM_TURNS = 10;
 
 	Tournament.INITIAL_AGENTS = [
-		{strategy:"tft", count:3},
-		{strategy:"all_d", count:3},
-		{strategy:"all_c", count:3},
-		{strategy:"grudge", count:3},
-		{strategy:"prober", count:3},
-		{strategy:"tf2t", count:3},
-		{strategy:"pavlov", count:3},
-		{strategy:"random", count:4}
+		{strategy:"tft", count:0},
+		{strategy:"all_d", count:1},
+		{strategy:"all_c", count:1},
+		{strategy:"grudge", count:0},
+		{strategy:"prober", count:0},
+		{strategy:"tf2t", count:0},
+		{strategy:"pavlov", count:0},
+		{strategy:"random", count:1},
+		{strategy: "player01", count:1},
+		{strategy: "player02", count:1},
+		{strategy: "player03", count:1},
+		{strategy: "player04", count:1},
+		{strategy: "player05", count:1},
+		{strategy: "player06", count:1},
+		{strategy: "player07", count:1},
+		{strategy: "player08", count:1},
+		{strategy: "player09", count:1},
+		{strategy: "player10", count:1},
+		{strategy: "player11", count:1},
+		{strategy: "player12", count:1},
+		{strategy: "player13", count:1},
+		{strategy: "player14", count:1},
+		{strategy: "player15", count:1},
+		{strategy: "player16", count:1},
+		{strategy: "player17", count:1},
+		{strategy: "player18", count:1},
+		{strategy: "player19", count:1},
+		{strategy: "player20", count:1}
 	];
 
 	Tournament.FLOWER_CONNECTIONS = false;
@@ -230,6 +250,7 @@ function Tournament(config){
 	self.playOneTournament = function(){
 		PD.playOneTournament(self.agents, Tournament.NUM_TURNS);
 		self.agentsSorted = self.agents.slice();
+		publish("tournament/newdata", [self.agentsSorted.slice()]);
 		self.agentsSorted.sort(function(a,b){
 			if(a.coins==b.coins) return (Math.random()<0.5); // if equal, random
 			return a.coins-b.coins; // otherwise, sort as per usual
@@ -325,7 +346,7 @@ function Tournament(config){
 		_nextStep();
 		setTimeout(function(){
 			if(self.isAutoPlaying) _startAutoPlay();
-		},150);
+		},3000);
 	};
 	var _stopAutoPlay = function(){
 		self.isAutoPlaying = false;
