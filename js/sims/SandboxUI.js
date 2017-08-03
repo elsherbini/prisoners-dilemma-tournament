@@ -14,28 +14,29 @@ function SandboxUI(config){
   /////////////////////////////////////////
 
   var playButton = new Button({
-    x:172, y:135, text_id:"label_start", size:"short",
+    x:172, y:135+70, text_id:"label_start", size:"short",
     onclick: function(){
-      if(slideshow.objects.tournament.isAutoPlaying){
-        publish("tournament/autoplay/stop");
-      }else{
-        publish("tournament/autoplay/start");
+      function setIntervalX(callback, delay, repetitions) {
+          var x = 0;
+          var intervalID = window.setInterval(function () {
+
+             callback();
+
+             if (++x === repetitions) {
+                 window.clearInterval(intervalID);
+             }
+          }, delay);
       }
+      setIntervalX(function () { publish("tournament/step")}, 1000, 3);
     }
-  });
-  listen(self, "tournament/autoplay/stop",function(){
-    playButton.setText("label_start");
-  });
-  listen(self, "tournament/autoplay/start",function(){
-    playButton.setText("label_stop");
   });
   dom.appendChild(playButton.dom);
 
-  var stepButton = new Button({
-    x:172, y:135+70, text_id:"label_step", message:"tournament/step", size:"short"
-  });
-  dom.appendChild(stepButton.dom);
-  
+  // var stepButton = new Button({
+  //   x:172, y:135+70, text_id:"label_step", message:"tournament/step", size:"short"
+  // });
+  // dom.appendChild(stepButton.dom);
+
   var resetButton = new Button({x:172, y:135+70*2, text_id:"label_reset", message:"tournament/reset", size:"short"});
   dom.appendChild(resetButton.dom);
 
@@ -129,7 +130,7 @@ function SandboxUI(config){
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
+
     //Package and export settings
     var settings = {
       margin:margin, width:width, height:height, categoryIndent:categoryIndent,
@@ -143,7 +144,7 @@ function SandboxUI(config){
     console.log(newdata)
 
     //Import settings
-    var margin=settings.margin, width=settings.width, height=settings.height, categoryIndent=settings.categoryIndent, 
+    var margin=settings.margin, width=settings.width, height=settings.height, categoryIndent=settings.categoryIndent,
     svg=settings.svg, x=settings.x, y=settings.y;
 
     //Reset domains
@@ -160,7 +161,7 @@ function SandboxUI(config){
     //ENTER//
     /////////
 
-    //Bind new data to chart rows 
+    //Bind new data to chart rows
 
     //Create chart row and move to below the bottom of the chart
     var chartRow = svg.selectAll("g.chartRow")
@@ -177,7 +178,7 @@ function SandboxUI(config){
       .attr("x", 0)
       .attr("opacity",0)
       .attr("height", y.rangeBand())
-      .attr("width", function(d) { return x(d.coins);}) 
+      .attr("width", function(d) { return x(d.coins);})
 
     //Add value labels
     newRow.append("text")
@@ -187,8 +188,8 @@ function SandboxUI(config){
       .attr("opacity",0)
       .attr("dy",".35em")
       .attr("dx","0.5em")
-      .text(function(d){return d.coins;}); 
-    
+      .text(function(d){return d.coins;});
+
     //Add Headlines
     newRow.append("text")
       .attr("class","category")
@@ -204,7 +205,7 @@ function SandboxUI(config){
     //////////
     //UPDATE//
     //////////
-    
+
     //Update bar widths
     chartRow.select(".bar").transition()
       .duration(300)
@@ -215,7 +216,7 @@ function SandboxUI(config){
     chartRow.select(".label").transition()
       .duration(300)
       .attr("opacity",1)
-      .tween("text", function(d) { 
+      .tween("text", function(d) {
       var i = d3.interpolate(+this.textContent.replace(/\,/g,''), +d.coins);
       return function(t) {
         this.textContent = Math.round(i(t));
@@ -260,10 +261,20 @@ function SandboxUI(config){
   var settings;
 
   subscribe("tournament/newdata", function(value){
-    if(!settings) settings=setup('.sandbox_chart');
-    redraw(settings, value) }
+    console.log(value);
+    var [round_number, ...rest] = value;
+    if(!settings){
+      d3.select("#tourney_scoreboard").append("h2").text("Round:");
+      settings=setup('.sandbox_chart')};
+    d3.select("#tourney_scoreboard").select("h2").text("Round: " + round_number);
+    redraw(settings, rest) }
     );
-  
+  subscribe("tournament/reset", function(value){
+    d3.select("#tourney_scoreboard").select("h2").text("Round:");
+    d3.select('.sandbox_chart').select('svg').remove();
+    settings=setup('.sandbox_chart');
+  })
+
   // Create an icon, label, and slider... that all interact with each other.
   var sliders = [];
   var _makePopulationControl = function(x, y, peepID, defaultValue){
@@ -391,7 +402,7 @@ function SandboxUI(config){
     Tournament.INITIAL_AGENTS.find(function(config){
       return config.strategy==peepID;
     }).count = value;
-    
+
     // What's the scale for the rest of 'em?
     var newRemainder = 25-value;
     var scale = newRemainder/_remainder;
@@ -414,7 +425,7 @@ function SandboxUI(config){
     }
     total += value; // total
 
-    // Difference... 
+    // Difference...
     var diff = 25-total;
     // If negative, remove one starting from BOTTOM, skipping anchor.
     // (UNLESS IT'S ZERO)
@@ -464,7 +475,7 @@ function SandboxUI(config){
     }
 
     // Reset!
-    
+
 
   };
 
@@ -476,7 +487,7 @@ function SandboxUI(config){
 
   // Labels
   page.appendChild(_makeLabel("sandbox_payoffs", {x:0, y:0, w:433}));
-  
+
   // PAYOFFS
   var payoffsUI = new PayoffsUI({x:84, y:41, scale:0.9, slideshow:self});
   page.appendChild(payoffsUI.dom);
@@ -554,7 +565,7 @@ function SandboxUI(config){
   /////////////////////////////////////////
   // Add & Remove Object //////////////////
   /////////////////////////////////////////
-  
+
   // Add...
   self.add = function(){
     _add(self);

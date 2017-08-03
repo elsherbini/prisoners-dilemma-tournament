@@ -73,7 +73,7 @@ function Tournament(config){
 
 	var self = this;
 	self.id = config.id;
-	
+
 	// APP
 	var app = new PIXI.Application(500, 500, {transparent:true, resolution:2});
 	self.dom = app.view;
@@ -111,7 +111,7 @@ function Tournament(config){
 
 		// Clear EVERYTHING
 		while(self.agents.length>0) self.agents[0].kill();
-		
+
 		// Convert to an array
 		self.agents = _convertCountToArray(AGENTS);
 
@@ -146,7 +146,7 @@ function Tournament(config){
 
 		// Clear EVERYTHING
 		while(self.connections.length>0) self.connections[0].kill();
-		
+
 		// Connect all of 'em
 		for(var i=0; i<self.agents.length; i++){
 			var playerA = self.agents[i];
@@ -178,6 +178,7 @@ function Tournament(config){
 
 	var AGENTS;
 	self.reset = function(){
+		self.num_rounds=0
 
 		// Agents & Network...
 		AGENTS = JSON.parse(JSON.stringify(Tournament.INITIAL_AGENTS));
@@ -247,10 +248,14 @@ function Tournament(config){
 
 	// Play one tournament
 	self.agentsSorted = null;
+	self.num_rounds = 0;
 	self.playOneTournament = function(){
 		PD.playOneTournament(self.agents, Tournament.NUM_TURNS);
 		self.agentsSorted = self.agents.slice();
-		publish("tournament/newdata", [self.agentsSorted.slice()]);
+		self.num_rounds = self.num_rounds + 1;
+		console.log(self.agentsSorted);
+		console.log( [self.num_rounds].concat(self.agentsSorted));
+		publish("tournament/newdata", [[self.num_rounds].concat(self.agentsSorted)]);
 		self.agentsSorted.sort(function(a,b){
 			if(a.coins==b.coins) return (Math.random()<0.5); // if equal, random
 			return a.coins-b.coins; // otherwise, sort as per usual
@@ -533,7 +538,7 @@ function TournamentConnection(config){
 
 	// Stretch dat bad boy
 	self.updateGraphics = function(){
-		
+
 		var f = self.from.graphics;
 		var t = self.to.graphics;
 		var dx = t.x-f.x;
@@ -541,7 +546,7 @@ function TournamentConnection(config){
 		var a = Math.atan2(dy,dx);
 		var dist = Math.sqrt(dx*dx+dy*dy);
 
-		g.x = f.x; 
+		g.x = f.x;
 		g.y = f.y;
 
 		if(Tournament.FLOWER_CONNECTIONS){
@@ -700,7 +705,7 @@ function TournamentAgent(config){
 
 		// Remove ANY tweens
 		Tween.removeTweens(g);
-		
+
 		// NOW remove graphics.
 		g.parent.removeChild(g);
 
@@ -713,4 +718,3 @@ function TournamentAgent(config){
 	};
 
 }
-

@@ -1,5 +1,5 @@
 var PEEP_METADATA = {
-	   tft: {frame:0, color:"#4089DD"}, 
+	   tft: {frame:0, color:"#4089DD"},
 	 all_d: {frame:1, color:"#52537F"},
 	 all_c: {frame:2, color:"#FF75FF"},
 	grudge: {frame:3, color:"#efc701"},
@@ -7,26 +7,26 @@ var PEEP_METADATA = {
 	  tf2t: {frame:5, color:"#88A8CE"},
 	pavlov: {frame:6, color:"#86C448"},
 	random: {frame:7, color:"#FF5E5E"},
-	player01: {frame:0, color:"#4089DD"}, 
-	player02: {frame:0, color:"#4089DD"}, 
-	player03: {frame:0, color:"#4089DD"}, 
-	player04: {frame:0, color:"#4089DD"}, 
-	player05: {frame:0, color:"#4089DD"}, 
-	player06: {frame:0, color:"#4089DD"}, 
-	player07: {frame:0, color:"#4089DD"}, 
-	player08: {frame:0, color:"#4089DD"}, 
-	player09: {frame:0, color:"#4089DD"}, 
-	player10: {frame:0, color:"#4089DD"}, 
-	player11: {frame:0, color:"#4089DD"}, 
-	player12: {frame:0, color:"#4089DD"}, 
-	player13: {frame:0, color:"#4089DD"}, 
-	player14: {frame:0, color:"#4089DD"}, 
-	player15: {frame:0, color:"#4089DD"}, 
-	player16: {frame:0, color:"#4089DD"}, 
-	player17: {frame:0, color:"#4089DD"}, 
-	player18: {frame:0, color:"#4089DD"}, 
-	player19: {frame:0, color:"#4089DD"}, 
-	player20: {frame:0, color:"#4089DD"}, 
+	player01: {frame:8, color:"#4089DD"},
+	player02: {frame:9, color:"#4089DD"},
+	player03: {frame:10, color:"#4089DD"},
+	player04: {frame:11, color:"#4089DD"},
+	player05: {frame:12, color:"#4089DD"},
+	player06: {frame:13, color:"#4089DD"},
+	player07: {frame:14, color:"#4089DD"},
+	player08: {frame:15, color:"#4089DD"},
+	player09: {frame:16, color:"#4089DD"},
+	player10: {frame:17, color:"#4089DD"},
+	player11: {frame:18, color:"#4089DD"},
+	player12: {frame:19, color:"#4089DD"},
+	player13: {frame:20, color:"#4089DD"},
+	player14: {frame:21, color:"#4089DD"},
+	player15: {frame:22, color:"#4089DD"},
+	player16: {frame:23, color:"#4089DD"},
+	player17: {frame:24, color:"#4089DD"},
+	player18: {frame:25, color:"#4089DD"},
+	player19: {frame:26, color:"#4089DD"},
+	player20: {frame:27, color:"#4089DD"}
 };
 
 var PD = {};
@@ -82,7 +82,7 @@ PD.playOneGame = function(playerA, playerB){
 	// Noise: random mistakes, flip around!
 	if(Math.random()<PD.NOISE) A = ((A==PD.COOPERATE) ? PD.CHEAT : PD.COOPERATE);
 	if(Math.random()<PD.NOISE) B = ((B==PD.COOPERATE) ? PD.CHEAT : PD.COOPERATE);
-	
+
 	// Get payoffs
 	var payoffs = PD.getPayoffs(A,B);
 
@@ -136,7 +136,7 @@ PD.playOneTournament = function(agents, turns){
 		for(var j=i+1; j<agents.length; j++){
 			var playerB = agents[j];
 			PD.playRepeatedGame(playerA, playerB, turns);
-		}	
+		}
 	}
 
 };
